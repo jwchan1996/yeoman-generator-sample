@@ -1,0 +1,6 @@
+{
+  "name": "generator-sample",
+  "dependencies": {
+    "yeoman-generator": "^4.12.0"
+  }
+}
