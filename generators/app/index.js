@@ -6,6 +6,19 @@
 const Generator = require('yeoman-generator')
 
 module.exports = class extends Generator {
+  prompting () {
+    return this.prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Your project name',
+        default: this.appname // appname 为项目生成目录名称
+      }
+    ]).then(answers => {
+      // answers => { name: 'user input value' }
+      this.answers = answers
+    })
+  }
   writing () {
     // Yeoman 自动在生成文件阶段调用此方法
     // 我们这里尝试往项目目录中写入文件
@@ -14,11 +27,11 @@ module.exports = class extends Generator {
     // 通过模板编译的方式写入文件到目标目录
 
     // 模板文件路径
-    const tmpl = this.templatePath('foo.txt')
+    const tmpl = this.templatePath('bar.html')
     // 输出目标路径
-    const output = this.destinationPath('foo.txt')
+    const output = this.destinationPath('bar.html')
     // 模板数据上下文
-    const context = { title: 'Hello', headline: '高级', success: true }
+    const context = this.answers
 
     this.fs.copyTpl(tmpl, output, context)
   }
